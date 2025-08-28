@@ -6,18 +6,25 @@ export const register = async (req, res) => {
         const {username, email, password, role} = req.body
     
         if(!username || !email || !password) {
-            return res.status(200).json({
+            return res.status(401).json({
                 success : false,
                 message : "All fields are required"
             })
         }
         
-        const existingUser = await User.find ({username})
+        //! findOne ek document return krta hai and find ek array
+        const existingUser = await User.findOne({
+            $or : [
+                {username}, {email}
+            ]
+        })
+        //!$or ek logical operator hai jo bolta hai:
+        //!"agar inme se koi bhi condition match karti hai toh document return karo."
 
         if(existingUser) { 
             return res.status(400).json({
                 success : false,
-                message : "User with this username already exists"
+                message : "User with this username or email already exists"
             })
         }
     
@@ -37,7 +44,7 @@ export const register = async (req, res) => {
         })
     } catch (error) {
         console.log(error)
-        res.status(400).json({
+        res.status(500).json({
             message : "Something went wrong while registering the user",
             success : false
         })
