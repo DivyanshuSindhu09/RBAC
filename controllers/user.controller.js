@@ -113,3 +113,13 @@ export const login = async (req, res) => {
     }
 
 }
+
+export const adminOnly = async (req, res) => {
+    res.status(200).json({message : "Welcome to admin route!"})
+}
+export const teacherOnly = async (req, res) => {
+    res.status(200).json({message : "Welcome to admin teacher!"})
+}
+export const studentOnly = async (req, res) => {
+    res.status(200).json({message : "Welcome to admin student!"})
+}
