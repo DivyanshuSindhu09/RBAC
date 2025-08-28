@@ -118,8 +118,8 @@ export const adminOnly = async (req, res) => {
     res.status(200).json({message : "Welcome to admin route!"})
 }
 export const teacherOnly = async (req, res) => {
-    res.status(200).json({message : "Welcome to admin teacher!"})
+    res.status(200).json({message : "Welcome to teacher route!"})
 }
 export const studentOnly = async (req, res) => {
-    res.status(200).json({message : "Welcome to admin student!"})
+    res.status(200).json({message : "Welcome to student route!"})
 }

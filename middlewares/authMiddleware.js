@@ -26,6 +26,14 @@ export const verifyToken = (req, res, next) => {
         // Verify token
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = decoded;
+        console.log(decoded)
+        // {
+        // id: '68b02eabce26c3d58192bb6b',
+        // role: 'admin',
+        // email: 'divyanshu.sindhu@gmail.com',
+        // iat: 1756399520,
+        // exp: 1756403120
+        // }
 
         next();
     } catch (error) {
