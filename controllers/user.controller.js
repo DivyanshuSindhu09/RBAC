@@ -84,13 +84,21 @@ export const login = async (req, res) => {
         }
     
         //! token generation k lie -> payload, jwt secret, expiry
-        const token = jsonwebtoken.sign({
+        const token = jwt.sign({
             id : user._id,
             role : user.role,
             email : user.email
         }, process.env.JWT_SECRET,{
             expiresIn : "1h"
         })
+
+        const options = {
+            httpOnly: true,     // JavaScript se accessible nahi (XSS safe)
+            secure: true,       // sirf HTTPS pe (production me ON)
+            sameSite: "strict", // CSRF attacks se bachav
+            maxAge: 60 * 60 * 1000 // 1 hour
+        }
+        res.cookie("token", token, options)
     
         return res.status(200).json({
             success : true,
